@@ -19,7 +19,7 @@
  - Obs: A pasta src contem os arquivos separados do front-end. O index.html é o arquivo frontend que contem o css e js juntos, já que não cosnegui fazer com que o server reconhece-se a pasta src como um todo e assim, o server levanta o index.html com tudo junto.
 
  ### Vídeo
- - Vídeo
+ - ![projeto](/pianoWEBESP.gif)
 
 ## Tecnologias
 - HTML/CSS
