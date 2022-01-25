@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>PIANO WEB - ESP8266</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+           text-align: center;
+        }
+        
+        h1, h2 {
+           padding: 2rem;
+        }
+         
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .teclado {
+            margin: 10px auto;
+            max-width: 500px;
+            height: 300px;
+            display: flex;
+        }
+
+        .sombraTecla {
+            box-shadow: 1px 4px 4px #000;
+        }
+
+        .notaMusical {
+            height: 100%;
+            flex: 1;
+            text-align: center;
+            border: .5px solid #000;
+        }
+
+        .notaPreta {
+            background-color: #000;
+            width: 35px;
+            height: 180px;
+            position: relative;
+            left: 55px;
+        }
+
+        .notaMusical a {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+        }
+
+        .notas {
+            background-color: #000;
+            color: #fff;
+            max-width: 500px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .notas p {
+            flex: 1;
+            border-left: 1px solid #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Teclado WEB - ESP8266</h1>
+
+    <div class="teclado" id="piano">
+        <div class="notaMusical"></div>
+        <div class="notaMusical"></div>
+        <div class="notaMusical"></div>
+        <div class="notaMusical"></div>
+        <div class="notaMusical"></div>
+        <div class="notaMusical"></div>
+        <div class="notaMusical"></div>
+    </div>
+
+    <div class="notas">
+        <p>DÓ</p>
+        <p>RÉ</p>
+        <p>MI</p>
+        <p>FÁ</p>
+        <p>SOL</p>
+        <p>LÁ</p>
+        <p>SÍ</p>
+    </div>
+
+    <footer>
+        <h2>
+            Desenvolvido por <a href="https://github.com/Matheus-Pontes">Matheus Pontes</a>
+        </h2>
+    </footer>
+
+    <script>
+        let $teclasPiano = document.querySelectorAll(".notaMusical");
+
+        const teclasTeclado = {
+            "a": "0", // dó
+            "s": "1", // ré
+            "d": "2", // mi
+            "f": "3", // fá
+            "g": "4", // sol
+            "h": "5", // lá
+            "j": "6", // sí
+        };
+
+        const ws = new WebSocket("ws://localhost:3000");
+        
+        $teclasPiano.forEach((item, index)=> {
+            item.classList.add('sombraTecla');
+
+            let $createTeclaPreta = "<div class='notaPreta'></div>"
+    
+            if(index == $teclasPiano.length - 1) {
+                item.innerHTML = '';
+            } else {
+                item.innerHTML = $createTeclaPreta;
+            }
+        });
+
+        window.onkeydown = function(e) {
+            console.log("tecla clicada: ", e.key);
+        
+            if(teclasTeclado[e.key]) {
+                ws.send(teclasTeclado[e.key]);
+
+                $teclasPiano.forEach((item, index) => {
+                    if(teclasTeclado[e.key] == index){
+                        item.classList.remove('sombraTecla');
+                    }
+                });
+            } 
+        }
+
+        window.onkeyup = function(e) {
+            console.log("tecla soltada: ", e.key);
+
+            $teclasPiano.forEach((item, index) => {
+                if(teclasTeclado[e.key] == index){
+                    item.classList.add('sombraTecla');
+                }
+            });
+
+            ws.send("7");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+   text-align: center;
+}
+
+h1, h2 {
+   padding: 2rem;
+}
+ 
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+.teclado {
+    margin: 10px auto;
+    max-width: 500px;
+    height: 300px;
+    display: flex;
+}
+
+.sombraTecla {
+    box-shadow: 1px 4px 4px #000;
+}
+
+.notaMusical {
+    height: 100%;
+    flex: 1;
+    text-align: center;
+    border: .5px solid #000;
+}
+
+.notaPreta {
+    background-color: #000;
+    width: 35px;
+    height: 180px;
+    position: relative;
+    left: 55px;
+}
+
+.notaMusical a {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+.notas {
+    background-color: #000;
+    color: #fff;
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.notas p {
+    flex: 1;
+    border-left: 1px solid #fff;
+}
