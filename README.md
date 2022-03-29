@@ -1,6 +1,6 @@
 # Piano Web Esp8266
 
-- ![projeto](/pianoWEB.png)
+- [![Vídeo](/pianoWEB.png)](/)
 
 ## Projeto
 - O projeto nasceu de uma ideia já pronta com botões fisicos conectados ao ESP. Contudo, eu não tinha a quantidade de botões necessária para as notas básicas de um teclado.
