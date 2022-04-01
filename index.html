@@ -59,7 +59,7 @@
             width: 100%;
         }
 
-        .notas {
+        .notas, .teclasDoComputador {
             background-color: #000;
             color: #fff;
             max-width: 500px;
@@ -68,9 +68,10 @@
             align-items: center;
         }
 
-        .notas p {
+        .notas p, .teclasDoComputador p {
             flex: 1;
             border-left: 1px solid #fff;
+            border-bottom: 1px solid #fff;
         }
     </style>
 </head>
@@ -96,6 +97,16 @@
         <p>SOL</p>
         <p>LÁ</p>
         <p>SÍ</p>
+    </div>
+    
+    <div class="teclasDoComputador">
+        <p>A</p>
+        <p>S</p>
+        <p>D</p>
+        <p>F</p>
+        <p>G</p>
+        <p>H</p>
+        <p>J</p>
     </div>
 
     <footer>
@@ -132,7 +143,7 @@
         });
 
         window.onkeydown = function(e) {
-            console.log("tecla clicada: ", e.key);
+            // console.log("tecla clicada: ", e.key);
         
             if(teclasTeclado[e.key]) {
                 ws.send(teclasTeclado[e.key]);
@@ -146,7 +157,7 @@
         }
 
         window.onkeyup = function(e) {
-            console.log("tecla soltada: ", e.key);
+            // console.log("tecla soltada: ", e.key);
 
             $teclasPiano.forEach((item, index) => {
                 if(teclasTeclado[e.key] == index){

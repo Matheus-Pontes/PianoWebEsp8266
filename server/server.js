@@ -13,29 +13,29 @@ const teclasTeclado = {
     "6": "6", // sí  - j
 };
 
-var valor = 0;
+var notaRecebida = 0;
 
-let indexFile;
+let fileHTML;
 
 const requestListener = function(req, res) {
     res.setHeader("Content-types", "text-html");
     res.writeHead(200);
-    res.end(indexFile);
+    res.end(fileHTML);
 };
 
 const server = http.createServer(requestListener);
 
-fs.readFile(__dirname + "/index.html")
+fs.readFile(__dirname + "../../index.html")
     .then(contents => { 
-        indexFile = contents;
+        fileHTML = contents;
         server.listen(port, (res) => {
             console.log(`Servidor conectado na porta http://localhost:${port}`);
         });
     })
-.catch(error => {
-    res.writeHead(500);
-    process.exit();
-});
+    .catch(error => {
+        console.log("Could not found html page !!! " + error);
+        process.exit(1);
+    });
 
 const ws = new webSocketServer({
     httpServer: server
@@ -52,13 +52,13 @@ ws.on('request', (request, response) => {
             console.log("Enviando: ", message.utf8Data);
         }
 
-        valor = message.utf8Data;
+        notaRecebida = message.utf8Data;
         
     });
     
     setInterval(() => {
-        if(teclasTeclado[valor]) {
-            client.sendUTF(teclasTeclado[valor]);
+        if(teclasTeclado[notaRecebida]) {
+            client.sendUTF(teclasTeclado[notaRecebida]);
         } else {
             client.sendUTF("7");
         }
